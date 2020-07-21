@@ -19,9 +19,7 @@
     "express": "^4.13.3",
     "mocha": "^6.2.0",
     "morgan": "^1.8.0",
-    "resource-router-middleware": "^0.6.0"
-  },
-  "devDependencies": {
+    "resource-router-middleware": "^0.6.0",
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
