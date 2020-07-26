@@ -1,7 +1,9 @@
 import express from "express";
-import {port} from "./config";
+import mongoose from "mongoose";
 
+import { port } from "./config";
 import { handler } from "./controller.js";
+
 
 const db = process.env.MONGODB_URL;
 
