@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.enable("trust proxy");
-app.use(cors())
+app.use(cors({credentials: true, origin: "http://localhost:3000"}));
 
 mongoose.connect(mongo.uri, { useUnifiedTopology: true,useNewUrlParser: true}, function(err) {
     if (err) {

@@ -4,6 +4,7 @@
   "main": "src",
   "scripts": {
     "start": "babel-node src",
+    "dev": "nodemon --exec babel-node src",
     "test": "eslint src --fix && mocha"
   },
   "repository": {
