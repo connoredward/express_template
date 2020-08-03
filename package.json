@@ -3,7 +3,7 @@
   "description": "Starter project for an ES6 RESTful Express API",
   "main": "src",
   "scripts": {
-    "start": "nodemon --exec babel-node src",
+    "start": "babel-node src",
     "test": "eslint src --fix && mocha"
   },
   "repository": {
