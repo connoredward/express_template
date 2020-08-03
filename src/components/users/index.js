@@ -49,12 +49,12 @@ export async function authenticateUser({ body }) {
             // Issue token
             const payload = { email };
             const token = jwt.sign(payload, secret, {
-              expiresIn: '1h'
+              expiresIn: '24h'
             });
             res({
               error: false,
               token
-            })
+            });
           }
         })
       }

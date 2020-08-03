@@ -38,6 +38,10 @@ app.get("/secret", withAuth, (req, res) => {
 app.get("/checkToken", withAuth, (req, res) => {
     res.sendStatus(200);
 });
+app.get("/signOut", (req, res) => {
+    res.clearCookie("token");
+    res.sendStatus(200);
+})
 
 app.listen(port, () => console.log(
     `Example app listening on port ${port}!`
