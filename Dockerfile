@@ -1,19 +1,15 @@
-FROM node:alpine
+FROM node:12-alpine
 
-# Set app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /app
 
-# Install app dependencies
-COPY package.json /usr/src/app/
-COPY package-lock.json /usr/src/app/
-RUN npm install
+WORKDIR /tmp
+COPY package*.json ./
+RUN npm ci --no-optional
+RUN cp -a /tmp/node_modules /app/
+RUN rm -rf /tmp/* && \
+  npm install -g nodemon
 
-# Copy app source
-COPY . /usr/src/app
+WORKDIR /app
+COPY . .
 
-# expose the port to outside world
-EXPOSE 8080
-
-# start command as per package.json
-CMD ["npm", "start"]
+CMD [ "npm", "start" ]
