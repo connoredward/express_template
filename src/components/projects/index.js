@@ -9,7 +9,15 @@ export function createProject(item) {
   return true;
 };
 
+export function deleteProject(id) {
+  ProjectModel.findByIdAndRemove(id, function(err) {
+    console.log(err)
+  });
+  return true;
+}
+
 export default {
   getAllProjects,
-  createProject
+  createProject,
+  deleteProject
 };

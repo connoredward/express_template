@@ -12,4 +12,4 @@ RUN rm -rf /tmp/* && \
 WORKDIR /app
 COPY . .
 
-CMD [ "npm", "run",  "dev" ]
+CMD [ "npm", "run", "dev" ]

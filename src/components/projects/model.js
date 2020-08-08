@@ -4,7 +4,8 @@ mongoose.plugin(slug);
 
 const projectSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  slug: { type: String, slug: "title", slug_padding_size: 1, unique: true }
+  slug: { type: String, slug: "title", slug_padding_size: 1, unique: true },
+  img: { type: String }
 }, {
   timestamps: true
 });

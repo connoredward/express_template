@@ -3,22 +3,24 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
 
 import { port, mongo } from "./config";
 import { handler, 
-    getAllProjectsCont, createProjectCont,
+    getAllProjectsCont, createProjectCont, deleteProjectCont,
     createUserCont, authenticateCont
 } from "./controller.js";
 import { withAuth } from "./components/auth";
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(fileUpload());
 app.enable("trust proxy");
 app.use(cors({credentials: true, origin: ["https://x-x-git-master.cchaplain94.vercel.app", "http://localhost:3000"] }));
 
-mongoose.connect(mongo.uri, { useUnifiedTopology: true,useNewUrlParser: true}, function(err) {
+mongoose.connect(mongo.uri, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false}, (err) => {
     if (err) {
         throw err;
     } else {
@@ -28,6 +30,7 @@ mongoose.connect(mongo.uri, { useUnifiedTopology: true,useNewUrlParser: true}, f
 
 app.get("/getAllProjects", getAllProjectsCont);
 app.post("/createProject", createProjectCont);
+app.delete("/deleteProject/:id", deleteProjectCont);
 
 app.post("/createUser", createUserCont);
 app.post("/authenticate", authenticateCont);
