@@ -6,8 +6,8 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
 import { port, mongo } from "./config";
-import { handler, 
-    getAllProjectsCont, createProjectCont, deleteProjectCont,
+import {
+    getProjectCont, getProjectSingCont, createProjectCont, deleteProjectCont,
     createUserCont, authenticateCont
 } from "./controller.js";
 import { withAuth } from "./components/auth";
@@ -28,7 +28,9 @@ mongoose.connect(mongo.uri, { useUnifiedTopology: true, useNewUrlParser: true, u
     }
 });
 
-app.get("/getAllProjects", getAllProjectsCont);
+app.get("/getProject", getProjectCont);
+app.get("/getProject/:id", getProjectSingCont);
+
 app.post("/createProject", createProjectCont);
 app.delete("/deleteProject/:id", deleteProjectCont);
 

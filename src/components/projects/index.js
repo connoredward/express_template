@@ -4,6 +4,10 @@ export async function getAllProjects() {
   return await ProjectModel.find({});
 };
 
+export async function getProjectSing (id) {
+  return await ProjectModel.findById(id);
+};
+
 export function createProject(item) {
   ProjectModel.create(item);
   return true;
@@ -18,6 +22,7 @@ export function deleteProject(id) {
 
 export default {
   getAllProjects,
+  getProjectSing,
   createProject,
   deleteProject
 };

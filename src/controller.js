@@ -3,7 +3,7 @@ import path from "path";
 import stream from "stream";
 import { uuid } from "uuidv4";
 
-import { getAllProjects, createProject, deleteProject } from "./components/projects/index.js";
+import { getAllProjects, getProjectSing, createProject, deleteProject } from "./components/projects/index.js";
 import { createUser, authenticateUser } from "./components/users/index.js";
 
 const gc = new Storage({
@@ -13,16 +13,19 @@ const gc = new Storage({
 
 const googleBucket = gc.bucket("cms_test_files");
 
-export const handler = (req, res) => {
-  res.send('hello world')
-}
-
-export const getAllProjectsCont = async(req, res) => {
+export const getProjectCont = async (req, res) => {
   const response = await getAllProjects();
   res.send(response);
 };
 
-export const createProjectCont = async(req, res) => {
+
+export const getProjectSingCont = async (req, res) => {
+  const { id } = req.params;
+  res.send(await getProjectSing(id));
+
+}
+
+export const createProjectCont = async (req, res) => {
   const { files } = req;
   let readStream = new stream.PassThrough();
   readStream.end(Buffer.from(files.myFile.data));
@@ -80,8 +83,9 @@ export const authenticateCont = async({ body }, res) => {
 }
 
 export default {
-  handler,
-  getAllProjectsCont,
+  getProjectCont,
+  getProjectSingCont,
+
   createProjectCont,
   deleteProjectCont,
 
