@@ -18,12 +18,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload());
 app.enable("trust proxy");
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-});
-
 app.use(cors({credentials: true, origin: ["https://x-x-git-master.cchaplain94.vercel.app", "http://localhost:3000"] }));
 
 mongoose.connect(mongo.uri, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false}, (err) => {
