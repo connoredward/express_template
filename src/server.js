@@ -46,9 +46,8 @@ app.get("/checkToken", withAuth, (req, res) => {
     res.sendStatus(200);
 });
 app.get("/signOut", (req, res) => {
-    // res.clearCookie("token");
-    const origin = req.headers.origin;
-    if (origin.includes('localhost')) {
+    const host = req.headers.host;
+    if (host.includes('localhost')) {
         res.cookie("token", "deleted", { httpOnly: true, maxAge: 0, expires: "Thu, 01 Jan 1970 00:00:00 GMT"  }).sendStatus(200);
     } else {
         res.cookie("token", "deleted", { httpOnly: true, sameSite: "None", secure: true, maxAge: 0, expires: "Thu, 01 Jan 1970 00:00:00 GMT"  }).sendStatus(200);

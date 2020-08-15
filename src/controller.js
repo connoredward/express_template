@@ -80,12 +80,12 @@ export const createUserCont = async({ body }, res) => {
 };
 
 export const authenticateCont = async(req, res) => {
-  const origin = req.headers.origin;
+  const host = req.headers.host;
   const response = await authenticateUser(req.body);
   if (response && response.error === true) {
     res.status(response.status).json({ error: response.msg });
   } else {
-    if (origin.includes('localhost')) {
+    if (host.includes('localhost')) {
       res.cookie("token", response.token, { httpOnly: true }).sendStatus(200);
     } else {
       res.cookie("token", response.token, { httpOnly: true, sameSite: "None", secure: true }).sendStatus(200);
