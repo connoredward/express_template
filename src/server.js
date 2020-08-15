@@ -46,7 +46,7 @@ app.get("/checkToken", withAuth, (req, res) => {
     res.sendStatus(200);
 });
 app.get("/signOut", (req, res) => {
-    res.clearCookie("token", { path: "/", domain: "frozen-harbor-92385.herokuapp.com" });
+    res.clearCookie("token");
     res.sendStatus(200);
 })
 

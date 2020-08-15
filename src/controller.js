@@ -84,7 +84,8 @@ export const authenticateCont = async({ body }, res) => {
   if (response && response.error === true) {
     res.status(response.status).json({ error: response.msg });
   } else {
-    res.cookie("token", response.token, { httpOnly: true, sameSite: 'None', secure: true }).sendStatus(200);
+    // frozen-harbor-92385.herokuapp.com
+    res.cookie("token", response.token, { httpOnly: true, sameSite: "Lax" }).sendStatus(200);
   }
 }
 
