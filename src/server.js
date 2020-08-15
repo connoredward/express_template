@@ -46,7 +46,7 @@ app.get("/checkToken", withAuth, (req, res) => {
     res.sendStatus(200);
 });
 app.get("/signOut", (req, res) => {
-    res.clearCookie("token", { path: "/", domain: ["https://x-x-git-master.cchaplain94.vercel.app", "https://x-x-one.vercel.app", "http://localhost:3000", "http://127.0.0.1:3000"] });
+    res.clearCookie("token", { path: "/", domain: "frozen-harbor-92385.herokuapp.com" });
     res.sendStatus(200);
 })
 
