@@ -47,7 +47,12 @@ app.get("/checkToken", withAuth, (req, res) => {
 });
 app.get("/signOut", (req, res) => {
     // res.clearCookie("token");
-    res.cookie("token", "deleted", { httpOnly: true, maxAge: 0, expires: "Thu, 01 Jan 1970 00:00:00 GMT"  }).sendStatus(200);
+    const origin = req.headers.origin;
+    if (origin.includes('localhost')) {
+        res.cookie("token", "deleted", { httpOnly: true, maxAge: 0, expires: "Thu, 01 Jan 1970 00:00:00 GMT"  }).sendStatus(200);
+    } else {
+        res.cookie("token", "deleted", { httpOnly: true, sameSite: "None", secure: true, maxAge: 0, expires: "Thu, 01 Jan 1970 00:00:00 GMT"  }).sendStatus(200);
+    }
 })
 
 app.listen(port, () => console.log(
