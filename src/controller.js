@@ -84,8 +84,7 @@ export const authenticateCont = async({ body }, res) => {
   if (response && response.error === true) {
     res.status(response.status).json({ error: response.msg });
   } else {
-    res.cookie("token", response.token, { httpOnly: true })
-    res.sendStatus(200);
+    res.cookie("token", response.token, { httpOnly: true, sameSite: 'None', secure: true }).sendStatus(200);
   }
 }
 
