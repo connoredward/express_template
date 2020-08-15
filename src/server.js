@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(fileUpload());
 app.enable("trust proxy");
-app.use(cors({credentials: true, origin: ["https://x-x-git-master.cchaplain94.vercel.app",  "http://localhost:3000"] }));
+app.use(cors({credentials: true, origin: ["https://x-x-git-master.cchaplain94.vercel.app", "https://x-x-one.vercel.app", "http://localhost:3000", "http://127.0.0.1:3000"] }));
 
 mongoose.connect(mongo.uri, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false}, (err) => {
     if (err) {
