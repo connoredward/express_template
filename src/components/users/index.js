@@ -30,7 +30,7 @@ export async function createUser({ body }) {
   });
 };
 
-export async function authenticateUser({ body }) {
+export async function authenticateUser(body) {
   const { email, password } = body;
   return await new Promise((res, rej) => {
     UserModel.findOne({ email }, (err, user) => {

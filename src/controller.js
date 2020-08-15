@@ -79,13 +79,17 @@ export const createUserCont = async({ body }, res) => {
   }
 };
 
-export const authenticateCont = async({ body }, res) => {
-  const response = await authenticateUser({ body });
+export const authenticateCont = async(req, res) => {
+  const origin = req.headers.origin;
+  const response = await authenticateUser(req.body);
   if (response && response.error === true) {
     res.status(response.status).json({ error: response.msg });
   } else {
-    // frozen-harbor-92385.herokuapp.com
-    res.cookie("token", response.token, { httpOnly: true, sameSite: "Lax" }).sendStatus(200);
+    if (origin.includes('localhost')) {
+      res.cookie("token", response.token, { httpOnly: true }).sendStatus(200);
+    } else {
+      res.cookie("token", response.token, { httpOnly: true, sameSite: "None", secure: true }).sendStatus(200);
+    }
   }
 }
 
