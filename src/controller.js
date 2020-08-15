@@ -3,7 +3,8 @@ import path from "path";
 import stream from "stream";
 import { uuid } from "uuidv4";
 
-import { getAllProjects, getProjectSing, createProject, deleteProject } from "./components/projects/index.js";
+import { getAllProjects, getProjectSing, createProject, updateProject, deleteProject } from "./components/projects/index.js";
+
 import { createUser, authenticateUser } from "./components/users/index.js";
 
 const gc = new Storage({
@@ -52,6 +53,11 @@ export const createProjectCont = async (req, res) => {
   res.send(response);
 };
 
+export const updateProjectCont = async ({ body }, res) => {
+  const response = await updateProject(body);
+  res.send(response);
+};
+
 export const deleteProjectCont = async(req, res) => {
   const { id } = req.params
   const response = await deleteProject(id);
@@ -87,6 +93,7 @@ export default {
   getProjectSingCont,
 
   createProjectCont,
+  updateProjectCont,
   deleteProjectCont,
 
   createUserCont,

@@ -13,6 +13,11 @@ export function createProject(item) {
   return true;
 };
 
+export async function updateProject(item) {
+  await ProjectModel.findByIdAndUpdate(item._id, item, { new: true });
+  return true;
+};
+
 export function deleteProject(id) {
   ProjectModel.findByIdAndRemove(id, function(err) {
     console.log(err)
@@ -24,5 +29,6 @@ export default {
   getAllProjects,
   getProjectSing,
   createProject,
+  updateProject,
   deleteProject
 };
