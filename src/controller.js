@@ -1,60 +1,30 @@
-import { Storage } from "@google-cloud/storage";
-import path from "path";
-import stream from "stream";
-import { uuid } from "uuidv4";
-
 import { getAllProjects, getProjectSing, createProject, updateProject, deleteProject } from "./components/projects/index.js";
-
 import { createUser, authenticateUser } from "./components/users/index.js";
-
-const gc = new Storage({
-  keyFilename: path.join(__dirname, "../pristine-nomad-277506-f44132b72d13.json"),
-  projectId: "pristine-nomad-277506"
-});
-
-const googleBucket = gc.bucket("cms_test_files");
+import uploadMedia from './components/upload';
 
 export const getProjectCont = async (req, res) => {
   const response = await getAllProjects();
   res.send(response);
 };
 
-
 export const getProjectSingCont = async (req, res) => {
   const { id } = req.params;
   res.send(await getProjectSing(id));
-
 }
 
-export const createProjectCont = async (req, res) => {
-  const { files } = req;
-  let readStream = new stream.PassThrough();
-  readStream.end(Buffer.from(files.myFile.data));
-
-  const fileName = uuid();
-
-  await new Promise((res, rej) => {
-    readStream.pipe(
-      googleBucket.file(`${fileName}.png`).createWriteStream({
-        resumable: false,
-        gzip: true
-      })
-    )
-    .on("finish", res)
-  }); 
-
-  const img = `https://storage.cloud.google.com/cms_test_files/${fileName}.png`
-
-  const item = {
-    img,
-    title: req.body.title
-  }
-  const response = await createProject(item);
+export const createProjectCont = async ({ body, files }, res) => {
+  const response = await createProject({
+    img: await uploadMedia(files),
+    title: body.title
+  });
   res.send(response);
 };
 
-export const updateProjectCont = async ({ body }, res) => {
-  const response = await updateProject(body);
+export const updateProjectCont = async ({ body, files }, res) => {
+  const response = await updateProject({
+    ...body,
+    img: files ? await uploadMedia(files) : body.img,
+  });
   res.send(response);
 };
 
