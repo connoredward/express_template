@@ -32,9 +32,9 @@ export const deleteProjectCont = async(req, res) => {
   const { id } = req.params
   const response = await deleteProject(id);
   if (response === true) {
-    res.status(200).send("deleted");
+    res.status(200).send(true);
   } else {
-    res.status(500).send("Error...")
+    res.status(500).send(false)
   }
 };
 
