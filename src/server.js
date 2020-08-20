@@ -6,11 +6,29 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
 import { port, mongo } from "./config";
-import {
-    getProjectCont, getProjectSingCont, createProjectCont, updateProjectCont, deleteProjectCont,
 
-    createUserCont, authenticateCont
-} from "./controller.js";
+import {
+    getProjectCont, 
+    getProjectSingCont, 
+    createProjectCont, 
+    updateProjectCont, 
+    deleteProjectCont
+} from './components/projects/projects.controller.js';
+
+import {
+    getAllCategoriesCont,
+    getCategorySingCont,
+    createCategoryCont,
+    updateCategoryCont,
+    deleteCatergoryCont
+} from './components/category/category.controller.js';
+
+import { 
+    createUserCont, 
+    authenticateCont,
+    signOutCont
+} from './components/users/user.controller.js';
+
 import { withAuth } from "./components/auth";
 
 const app = express();
@@ -29,30 +47,27 @@ mongoose.connect(mongo.uri, { useUnifiedTopology: true, useNewUrlParser: true, u
     }
 });
 
-app.get("/getProject", getProjectCont);
-app.get("/getProject/:id", getProjectSingCont);
+app.get("/checkToken", withAuth, (req, res) => { res.sendStatus(200); });
 
-app.post("/createProject", createProjectCont);
-app.put("/updateProject", updateProjectCont);
-app.delete("/deleteProject/:id", deleteProjectCont);
+// PROJECT ROUTERS
+app.get(    '/getProject',        getProjectCont);
+app.get(    '/getProject/:id',    getProjectSingCont);
+app.post(   '/createProject',     createProjectCont);
+app.put(    '/updateProject',     updateProjectCont);
+app.delete( '/deleteProject/:id', deleteProjectCont);
 
-app.post("/createUser", createUserCont);
-app.post("/authenticate", authenticateCont);
+// CATEGORIES ROUTES
+app.get(    '/getCategory',       getAllCategoriesCont);
+app.get(    '/getCategory/:slug', getCategorySingCont);
+app.post(   '/createCategory',    createCategoryCont);
+app.put(    '/updateCategory',    updateCategoryCont);
+app.delete( '/deleteCategory',    deleteCatergoryCont);
 
-app.get("/secret", withAuth, (req, res) => {
-    res.send("Password is potato");
-});
-app.get("/checkToken", withAuth, (req, res) => {
-    res.sendStatus(200);
-});
-app.get("/signOut", (req, res) => {
-    const host = req.headers.host;
-    if (host.includes('localhost')) {
-        res.cookie("token", "deleted", { httpOnly: true, maxAge: 0, expires: "Thu, 01 Jan 1970 00:00:00 GMT"  }).sendStatus(200);
-    } else {
-        res.cookie("token", "deleted", { httpOnly: true, sameSite: "None", secure: true, maxAge: 0, expires: "Thu, 01 Jan 1970 00:00:00 GMT"  }).sendStatus(200);
-    }
-})
+// USER ROUTERS
+app.post(   '/createUser',        createUserCont);
+app.post(   '/authenticate',      authenticateCont);
+app.get(    '/signOut',           signOutCont);
+
 
 app.listen(port, () => console.log(
     `Example app listening on port ${port}!`
