@@ -20,8 +20,8 @@ export const getProjectSingCont = async (req, res) => {
 
 export const createProjectCont = async ({ body, files }, res) => {
   const response = await createProject({
+    ...body,
     img: await uploadMedia(files),
-    title: body.title
   });
   res.send(response);
 };
