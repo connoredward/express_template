@@ -10,15 +10,15 @@ const gc = new Storage({
 
 const googleBucket = gc.bucket('cms_test_files');
 
-export async function uploadMedia(file) {
+export async function uploadMedia(file, mimetype) {
   let readStream = new stream.PassThrough();
-  readStream.end(Buffer.from(file.img.data));
+  readStream.end(Buffer.from(file.data));
 
   const fileName = uuid();
 
   await new Promise((res, rej) => {
     readStream.pipe(
-      googleBucket.file(`${fileName}.png`).createWriteStream({
+      googleBucket.file(`${fileName}.${mimetype}`).createWriteStream({
         resumable: false,
         gzip: true
       })
@@ -26,7 +26,7 @@ export async function uploadMedia(file) {
     .on('finish', res);
   }); 
   
-  return `https://storage.cloud.google.com/cms_test_files/${fileName}.png`;
+  return `https://storage.cloud.google.com/cms_test_files/${fileName}.${mimetype}`;
 };
 
 export default uploadMedia;

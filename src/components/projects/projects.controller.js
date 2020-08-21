@@ -19,17 +19,21 @@ export const getProjectSingCont = async (req, res) => {
 }
 
 export const createProjectCont = async ({ body, files }, res) => {
+  const { img, video } = files;
   const response = await createProject({
     ...body,
-    img: await uploadMedia(files),
+    img: await uploadMedia(img, 'png'),
+    video: await uploadMedia(video, 'mp4')
   });
   res.send(response);
 };
 
 export const updateProjectCont = async ({ body, files }, res) => {
+  const { img, video } = files;
   const response = await updateProject({
     ...body,
-    img: files ? await uploadMedia(files) : body.img,
+    img: img ? await uploadMedia(img, 'png') : body.img,
+    video: video ? await uploadMedia(video, 'mp4') : body.video
   });
   res.send(response);
 };
