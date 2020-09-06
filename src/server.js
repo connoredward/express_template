@@ -73,7 +73,7 @@ app.get(    '/getCategory',       getAllCategoriesCont);
 app.get(    '/getCategory/:slug', getCategorySingCont);
 app.post(   '/createCategory',    createCategoryCont);
 app.put(    '/updateCategory',    updateCategoryCont);
-app.delete( '/deleteCategory',    deleteCatergoryCont);
+app.delete( '/deleteCategory/:id',    deleteCatergoryCont);
 
 // USER ROUTERS
 app.post(   '/createUser',        createUserCont);

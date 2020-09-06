@@ -6,7 +6,7 @@ import {
   deleteProject 
 } from "./index.js";
 
-import uploadMedia from '../upload';
+import { uploadMedia } from '../media';
 
 export const getProjectCont = async (req, res) => {
   const response = await getAllProjects();
@@ -29,11 +29,10 @@ export const createProjectCont = async ({ body, files }, res) => {
 };
 
 export const updateProjectCont = async ({ body, files }, res) => {
-  const { img, video } = files;
   const response = await updateProject({
     ...body,
-    img: img ? await uploadMedia(img, 'png') : body.img,
-    video: video ? await uploadMedia(video, 'mp4') : body.video
+    img: files && files.img ? await uploadMedia(img, 'png') : body.img,
+    video: files && files.video ? await uploadMedia(video, 'mp4') : body.video
   });
   res.send(response);
 };

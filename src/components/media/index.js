@@ -29,4 +29,11 @@ export async function uploadMedia(file, mimetype) {
   return `https://storage.cloud.google.com/cms_test_files/${fileName}.${mimetype}`;
 };
 
-export default uploadMedia;
+export async function deleteMedia(filename) {
+  await googleBucket.file(filename.split('/')[4]).delete();
+}
+
+export default {
+  uploadMedia,
+  deleteMedia
+};
