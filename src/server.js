@@ -8,12 +8,12 @@ import fileUpload from "express-fileupload";
 import { port, mongo } from "./config";
 
 import {
-    getProjectCont, 
-    getProjectSingCont, 
-    createProjectCont, 
-    updateProjectCont, 
-    deleteProjectCont
-} from './components/projects/projects.controller.js';
+    getPostCont, 
+    getPostSingCont, 
+    createPostCont, 
+    updatePostCont, 
+    deletePostCont
+} from './components/posts/posts.controller.js';
 
 import {
     getAllCategoriesCont,
@@ -61,12 +61,12 @@ mongoose.connect(mongo.uri, { useUnifiedTopology: true, useNewUrlParser: true, u
 
 app.get("/checkToken", withAuth, (req, res) => { res.sendStatus(200); });
 
-// PROJECT ROUTERS
-app.get(    '/getProject',        getProjectCont);
-app.get(    '/getProject/:id',    getProjectSingCont);
-app.post(   '/createProject',     createProjectCont);
-app.put(    '/updateProject',     updateProjectCont);
-app.delete( '/deleteProject/:id', deleteProjectCont);
+// POST ROUTERS
+app.get(    '/getPost',        getPostCont);
+app.get(    '/getPost/:id',    getPostSingCont);
+app.post(   '/createPost',     createPostCont);
+app.put(    '/updatePost',     updatePostCont);
+app.delete( '/deletePost/:id', deletePostCont);
 
 // CATEGORIES ROUTES
 app.get(    '/getCategory',       getAllCategoriesCont);
