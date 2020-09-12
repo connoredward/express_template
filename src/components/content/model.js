@@ -9,7 +9,6 @@ const contentSchema = new mongoose.Schema({
   img:       { type: String },
   row:       { type: Number },
   column:    { type: Number },
-  published: { type: String },
   status:    { type: String }
 }, {
   timestamps: true

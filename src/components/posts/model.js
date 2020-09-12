@@ -10,7 +10,8 @@ const postSchema = new mongoose.Schema({
   video:     { type: String },
   row:       { type: Number },
   column:    { type: Number },
-  status:    { type: String }
+  status:    { type: String },
+  color:     { type: String }
 }, {
   timestamps: true
 });
