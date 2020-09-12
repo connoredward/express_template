@@ -83,7 +83,7 @@ app.delete( '/deletePost/:id', deletePostCont);
 
 // CATEGORIES ROUTES
 app.get(    '/getCategory',        getAllCategoriesCont);
-app.get(    '/getCategory/:slug',  getCategorySingCont);
+app.get(    '/getCategory/:id',  getCategorySingCont);
 app.post(   '/createCategory',     createCategoryCont);
 app.put(    '/updateCategory',     updateCategoryCont);
 app.delete( '/deleteCategory/:id', deleteCatergoryCont);

@@ -12,8 +12,8 @@ export const getAllCategoriesCont = async (req, res) => {
 };
 
 export const getCategorySingCont = async (req, res) => {
-  const { slug } = req.params;
-  res.send(await getCategorySing(slug));
+  const { id } = req.params;
+  res.send(await getCategorySing(id));
 };
 
 export const createCategoryCont = async ({ body }, res) => {

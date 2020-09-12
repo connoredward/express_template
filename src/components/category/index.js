@@ -4,8 +4,8 @@ export async function getAllCategories() {
   return await CategoryModel.find({});
 };
 
-export async function getCategorySing(slug) {
-  return await CategoryModel.findOne({ slug });
+export async function getCategorySing(id) {
+  return await CategoryModel.findById(id);
 };
 
 export function createCategory(item) {
