@@ -10,21 +10,19 @@ export async function getPostSing (id) {
   return await PostModel.findById(id);
 };
 
-export function createPost(item) {
-  PostModel.create(item);
-  return true;
+export async function createPost(item) {
+  return (await PostModel.create(item)).toObject();
 };
 
-export async function updatePost(item) {
-  await PostModel.findByIdAndUpdate(item._id, item, { new: true });
-  return true;
+export async function updatePost(item) {  
+  return (await PostModel.findByIdAndUpdate(item._id, item, { new: true })).toObject();
 };
 
 export function deletePost(id) {
   PostModel.findByIdAndRemove(id, (err, post) => {
-      const { img, video } = post;
-      if (img) deleteMedia(img).catch(console.error)
-      if (video) deleteMedia(video).catch(console.error)
+      // const { img, video } = post;
+      // if (img) deleteMedia(img).catch(console.error)
+      // if (video) deleteMedia(video).catch(console.error)
   });
   return true;
 }

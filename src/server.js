@@ -23,11 +23,24 @@ import {
     deleteCatergoryCont
 } from './components/category/category.controller.js';
 
+import {
+    getContentCont,
+    getContentSingCont,
+    createContentCont,
+    updateContentCont,
+    deleteContentCont
+} from './components/content/content.controller.js';
+
 import { 
     createUserCont, 
     authenticateCont,
     signOutCont
 } from './components/users/user.controller.js';
+
+import {
+    getSubCont,
+    deleteSubCont
+} from './components/subscribe/subscribe.controller.js';
 
 import { withAuth } from "./components/auth";
 
@@ -69,16 +82,27 @@ app.put(    '/updatePost',     updatePostCont);
 app.delete( '/deletePost/:id', deletePostCont);
 
 // CATEGORIES ROUTES
-app.get(    '/getCategory',       getAllCategoriesCont);
-app.get(    '/getCategory/:slug', getCategorySingCont);
-app.post(   '/createCategory',    createCategoryCont);
-app.put(    '/updateCategory',    updateCategoryCont);
-app.delete( '/deleteCategory/:id',    deleteCatergoryCont);
+app.get(    '/getCategory',        getAllCategoriesCont);
+app.get(    '/getCategory/:slug',  getCategorySingCont);
+app.post(   '/createCategory',     createCategoryCont);
+app.put(    '/updateCategory',     updateCategoryCont);
+app.delete( '/deleteCategory/:id', deleteCatergoryCont);
+
+// CONTENT ROUTES 
+app.get(    '/getContent',        getContentCont);
+app.get(    '/getContent/:id',    getContentSingCont);
+app.post(   '/createContent',     createContentCont);
+app.put(    '/updateContent',     updateContentCont);
+app.delete( '/deleteContent/:id', deleteContentCont);
 
 // USER ROUTERS
 app.post(   '/createUser',        createUserCont);
 app.post(   '/authenticate',      authenticateCont);
 app.get(    '/signOut',           signOutCont);
+
+//  SUBSCRIBE
+app.get('/getSub', getSubCont);
+app.delete( '/deleteSub/:_id',    deleteSubCont);
 
 
 app.listen(port, () => console.log(
